@@ -1,0 +1,1057 @@
+// NOTE: AntD modals render in a portal outside `.vpn-dashboard`,
+// so `.agent-copy-btn` must be globally scoped.
+.agent-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e9e7f2;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: 0.18s ease;
+}
+
+.agent-copy-btn:hover {
+  background: rgba(115, 201, 226, 0.14);
+  border-color: rgba(115, 201, 226, 0.35);
+}
+
+.agent-copy-btn:active {
+  transform: translateY(1px);
+}
+
+// Global dVPN button styles (needed for AntD Modals which render in Portals)
+.dvpn-solid-btn {
+  background: #18171f;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #73c9e2 0%, #6145ea 101.48%);
+    border-radius: 12px;
+    padding: 1.5px;
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+  }
+
+  &:hover {
+    background: #1f1e29;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.dvpn-outline-btn {
+  background: #18171f;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #73c9e2 0%, #6145ea 101.48%);
+    border-radius: 10px;
+    padding: 1.5px;
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Fix for dVPN Modals (AntD Modals)
+.modalCustom {
+  .viewphrases {
+    color: #fff;
+    text-align: left;
+    
+    p {
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .dvpn-solid-btn {
+      margin-top: 20px;
+    }
+  }
+}
+
+.vpn-dashboard {
+  position: relative;
+  padding: 24px;
+  padding-bottom: 0;
+
+  .dvpn-loader-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 5, 9, 0.82);
+    backdrop-filter: blur(2px);
+    pointer-events: all;
+  }
+
+  .dvpn-loader-card {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    p {
+      margin: 0;
+      color: #c9c7d1;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    >span {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h2 {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 500;
+      line-height: 100%;
+    }
+
+    .connection-label {
+      font-size: 14px;
+      color: #98969b;
+      font-weight: 500;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .connection-label.connected {
+      color: #00e18d;
+    }
+  }
+
+
+  .agent-diag-warnings {
+    margin: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .diag-warning {
+      background: rgba(255, 171, 0, 0.1);
+      border: 1.5px solid rgba(255, 171, 0, 0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.45;
+      text-align: left;
+      animation: fadeInDiag 0.4s ease-out;
+
+      @keyframes fadeInDiag {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      a {
+        color: #73c9e2;
+        font-weight: 600;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .admin-blocking-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 82px;
+    background: rgba(10, 10, 15, 0.96);
+    backdrop-filter: blur(10px);
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    animation: fadeInOverlay 0.4s ease-out;
+
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .admin-modal-content {
+      background: #1a1a2e;
+      // Theme gradient border with rounded corners
+      border: 1px solid transparent;
+      background: 
+        linear-gradient(#1a1a2e, #1a1a2e) padding-box,
+        linear-gradient(90deg, #73c9e2 0%, #6c8dc5 25.37%, #6456b2 76.11%, #6145ea 101.48%) border-box;
+      border-radius: 20px;
+      padding: 32px 24px;
+      max-width: 340px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+      h2 {
+        // Gradient text
+        background: linear-gradient(90deg, #73c9e2 0%, #6c8dc5 25.37%, #6456b2 76.11%, #6145ea 101.48%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      p {
+        color: #e9e7f2;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      .instruction-step {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 14px 16px;
+        border-radius: 12px;
+        text-align: left;
+        font-size: 13px;
+        margin-bottom: 12px;
+        // border-left: 4px solid #6145ea;
+        color: #fff;
+
+        b {
+          color: #73c9e2;
+        }
+      }
+    }
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    margin-top: 10px;
+
+    .status {
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 0;
+
+      &.disconnected {
+        background: #ff0d0d33;
+        color: #ff0d0d;
+      }
+
+      &.connected {
+        background: rgba(0, 225, 141, 0.2);
+        color: #00e18d;
+      }
+    }
+
+    .days-left {
+      font-size: 14px;
+
+      span {
+        font-weight: 500;
+        color: #fff;
+      }
+
+      color: #98969b;
+      font-weight: 400;
+    }
+  }
+
+  .quick-connect-section {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    background: url("../../Assets/PNG/mapBg.png") center/cover no-repeat;
+
+    h3 {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 100%;
+      margin-top: 10px;
+    }
+  }
+
+  .agent-install-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    min-height: 480px;
+
+    .install-card {
+      background: #0d0c14;
+      border: 1.5px solid #eebc22;
+      border-radius: 14px;
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        color: #eebc22;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      .install-desc {
+        color: #e6e6e6;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: 400;
+      }
+
+      .install-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+
+    .install-guide-section {
+        width: 100%;
+
+        .agent-install-steps {
+          summary {
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 4px 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+
+            &::before {
+              content: '▾';
+              font-size: 14px;
+              transition: transform 0.2s;
+              transform: rotate(-90deg);
+            }
+          }
+
+          &[open] summary::before {
+            transform: rotate(0deg);
+          }
+
+          .guide-content {
+            margin-top: 15px;
+            text-align: left;
+
+            .install-steps-list {
+              padding-left: 20px;
+              margin-bottom: 20px;
+              li {
+                color: #d2d0d7;
+                font-size: 14px;
+                margin-bottom: 12px;
+                line-height: 1.4;
+                
+                a {
+                  color: #73c9e2;
+                  word-break: break-all;
+                }
+              }
+            }
+
+            .command-box-wrapper {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              width: 100%;
+
+              .dvpn-outline-btn {
+                align-self: flex-end;
+                width: auto;
+                min-width: 100px;
+                padding: 6px 14px;
+                font-size: 13px;
+                border-radius: 8px;
+                
+                &::before {
+                  border-radius: 8px;
+                  padding: 1.2px;
+                }
+              }
+
+              .copy-command-btn {
+                position: relative;
+                align-self: flex-end;
+                background: #1a1a2e;
+                border: none;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: opacity 0.2s;
+                z-index: 1;
+
+                &::before {
+                  content: "";
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(
+                    90deg,
+                    #73c9e2 0%,
+                    #6c8dc5 25.37%,
+                    #6456b2 76.11%,
+                    #6145ea 101.48%
+                  );
+                  border-radius: 8px;
+                  padding: 1.5px;
+                  -webkit-mask: linear-gradient(#000 0 0) content-box,
+                    linear-gradient(#000 0 0);
+                  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                  -webkit-mask-composite: destination-out;
+                  mask-composite: exclude;
+                  z-index: -1;
+                }
+
+                &:hover {
+                  opacity: 0.9;
+                }
+              }
+
+              .command-box {
+                background: rgba(115, 201, 226, 0.08);
+                border-radius: 8px;
+                padding: 15px;
+                border: 1px solid rgba(115, 201, 226, 0.25);
+                cursor: pointer;
+                transition: background 0.2s, border-color 0.2s;
+
+                &:hover {
+                  background: rgba(115, 201, 226, 0.12);
+                  border-color: rgba(115, 201, 226, 0.4);
+                }
+
+                pre {
+                  margin: 0;
+                  font-size: 13px;
+                  color: #e6e6e6;
+                  white-space: pre-wrap;
+                  word-break: break-all;
+                  font-family: 'JetBrains Mono', monospace;
+                  line-height: 1.5;
+
+                  .bash-command {
+                    color: #73c9e2;
+                    font-weight: 600;
+                  }
+
+                  .bash-comment {
+                    color: #98969b;
+                    font-weight: 400;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .all-platforms-section {
+        width: 100%;
+        margin-top: 12px;
+        padding-top: 12px;
+
+        .other-platforms-links {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          padding: 12px 0;
+
+          a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+
+            &:hover {
+              color: #73c9e2;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.agent-checking-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: #98969b;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .credit-bar {
+    background: linear-gradient(0deg, #101010, #101010),
+      linear-gradient(74.03deg,
+        rgba(105, 218, 219, 0) 67.63%,
+        rgba(105, 218, 219, 0.1) 95%),
+      linear-gradient(0deg, #18171f, #18171f);
+    border-radius: 14px;
+    padding: 7px 15px;
+
+    .bar {
+      height: 8px;
+      background: #76747b;
+      border-radius: 25px;
+      overflow: hidden;
+
+      .fill {
+        height: 100%;
+        background: linear-gradient(90deg,
+            #73c9e2 0%,
+            #6c8dc5 25.37%,
+            #6456b2 76.11%,
+            #6145ea 101.48%);
+        transition: width 0.3s;
+      }
+    }
+
+    .credit-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+
+      .right {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 100%;
+      }
+
+      .left {
+        color: #98969b;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 100%;
+      }
+    }
+  }
+
+  .country-list {
+    margin-top: 10px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: #fff;
+      line-height: 100%;
+      text-align: left;
+    }
+
+    .countryInner {
+      display: flex;
+      gap: 20px;
+    }
+
+    .country {
+      background: linear-gradient(0deg, #101010, #101010),
+        linear-gradient(74.03deg,
+          rgba(105, 218, 219, 0) 67.63%,
+          rgba(105, 218, 219, 0.1) 95%),
+        linear-gradient(0deg, #18171f, #18171f);
+      padding: 12px;
+      border-radius: 14px;
+      flex: 1;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: #fff;
+      line-height: 150%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      flex-direction: column;
+      line-height: 100%;
+
+      &:hover {
+        background: #2e2e3e;
+      }
+
+      img {
+        width: 30px;
+      }
+    }
+  }
+
+  .recent-sessions {
+    margin-top: 2px;
+
+    .recent-title {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      align-items: center;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 500;
+        color: #fff;
+        line-height: 100%;
+      }
+
+      .view-all {
+        font-size: 14px;
+        color: #98969b;
+        cursor: pointer;
+        font-weight: 500;
+      }
+    }
+
+    .mutliSession {
+      height: 230px;
+      overflow: auto;
+    }
+
+    .provider-pill {
+      margin: 0;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      border-radius: 20px;
+      border: 1.5px solid transparent;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 8px;
+      cursor: pointer;
+      background: #0d0c14;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .provider-pill.selected {
+      color: #fff;
+      background:
+        linear-gradient(#09080f, #09080f) padding-box,
+        linear-gradient(90deg, #73c9e2 0%, #6c8dc5 25.37%, #6456b2 76.11%, #6145ea 101.48%) border-box;
+    }
+
+    .provider-grid-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .session {
+      background: #18171f;
+      padding: 16px;
+      border-radius: 14px;
+      margin-top: 10px;
+
+      .session-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .session-info {
+        display: flex;
+        gap: 10px;
+
+        .flag {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+          flex-shrink: 0;
+          background: #242230;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        }
+
+        .location-time {
+          h5 {
+            font-weight: 500;
+            color: #fff;
+            line-height: 142%;
+            font-size: 14px;
+            text-align: left;
+          }
+
+          p {
+            color: #98969b;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 142%;
+            margin-top: 3px;
+          }
+        }
+      }
+
+      .duration {
+        font-size: 14px;
+        color: #98969b;
+        font-weight: 400;
+      }
+    }
+
+    .reconnect-btn {
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 14px;
+      color: #fff;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s;
+      justify-content: center;
+      gap: 6px;
+      align-items: center;
+      border: 0;
+      position: relative;
+      height: 50px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 14px;
+        padding: 1px;
+        background: linear-gradient(90deg,
+            #73c9e2 0%,
+            #6c8dc5 25.37%,
+            #6456b2 76.11%,
+            #6145ea 101.48%);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: xor;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+      }
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .connected-status-card {
+    margin-top: 10px;
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg,
+        #73c9e2 0%,
+        #6c8dc5 25.37%,
+        #6456b2 76.11%,
+        #6145ea 101.48%);
+
+    .label {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      margin: 0;
+      text-align: left;
+    }
+
+    h4 {
+      margin: 2px 0 0;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .protected {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+
+  .connected-location-card {
+    margin-top: 10px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #18171f;
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .globe {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #2c2a37;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    h5 {
+      color: #fff;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    p {
+      margin: 2px 0 0;
+      color: #98969b;
+      font-size: 12px;
+      text-align: left;
+    }
+  }
+
+  .recent-servers {
+    margin-top: 12px;
+
+    .recent-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      h3 {
+        color: #fff;
+        font-size: 18px;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .view-all {
+        color: #98969b;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+
+    .server-item {
+      background: #18171f;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .server-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 30px;
+      }
+    }
+
+    .server-meta {
+      h4 {
+        margin: 0;
+        color: #fff;
+        font-size: 14px;
+        text-align: left;
+      }
+
+      p {
+        margin: 2px 0 0;
+        color: #98969b;
+        font-size: 12px;
+        text-align: left;
+      }
+    }
+
+    .server-badge {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #2e324f;
+      color: #9cb8ff;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+.heightExt {
+  .quick-connect-section {
+    margin-top: 14px;
+    margin-bottom: 20 px;
+
+    h3 {
+      font-size: 13px;
+    }
+  }
+
+  .switch {
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .country-list {
+    h3 {
+      font-size: 13px;
+    }
+
+    .country {
+      font-size: 13px;
+      padding: 8px;
+
+      img {
+        width: 15px;
+      }
+    }
+  }
+
+  .recent-sessions {
+    .recent-title {
+      h3 {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .recent-sessions .mutliSession {
+    height: 237px;
+  }
+}
